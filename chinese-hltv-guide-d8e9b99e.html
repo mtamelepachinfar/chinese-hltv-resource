@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>资料整理 · hltv 索引笔记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f0f6f5;
+            color: #1e2b2a;
+            line-height: 1.6;
+            padding: 0 1rem 2.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-wrap {
+            max-width: 720px;
+            width: 100%;
+        }
+
+        /* 开场短句 — 轻巧、留白 */
+        .opening {
+            margin: 2.8rem 0 1.2rem;
+            font-size: 1.75rem;
+            font-weight: 340;
+            letter-spacing: -0.01em;
+            color: #1b4e4b;
+            border-left: 5px solid #3a9b95;
+            padding-left: 1rem;
+            line-height: 1.3;
+        }
+
+        .opening small {
+            font-size: 1rem;
+            font-weight: 300;
+            color: #4e6b68;
+            display: block;
+            margin-top: 0.4rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* 承接段落 */
+        .context {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(2px);
+            padding: 1.5rem 1.6rem;
+            border-radius: 28px 12px 28px 12px;
+            box-shadow: 0 6px 16px rgba(44, 108, 104, 0.06);
+            margin: 1.8rem 0 2rem;
+            color: #1d302e;
+        }
+
+        .context p {
+            margin-bottom: 1rem;
+        }
+
+        .context p:last-child {
+            margin-bottom: 0;
+        }
+
+        .context a {
+            color: #146b65;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted #3a9b95;
+            transition: border 0.2s;
+        }
+
+        .context a:hover {
+            border-bottom: 2px solid #1b7a73;
+        }
+
+        /* 网格卡片区 — 特点列表 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 2.2rem 0;
+        }
+
+        .feature-card {
+            background: #ffffffda;
+            backdrop-filter: blur(1px);
+            border-radius: 32px 8px 32px 8px;
+            padding: 1.5rem 1rem 1.2rem;
+            box-shadow: 0 2px 10px rgba(48, 118, 112, 0.06);
+            border: 1px solid #d4ede9;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: #4aafa8;
+        }
+
+        .feature-card .emoji-badge {
+            display: inline-block;
+            font-size: 1.7rem;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 540;
+            color: #11524e;
+            margin: 0.3rem 0 0.4rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-card p {
+            font-size: 0.92rem;
+            color: #2c4844;
+            line-height: 1.5;
+        }
+
+        /* 场景 / 额外提示 — 温和的叙述 */
+        .scene-note {
+            background: #e5f3f0;
+            border-radius: 24px 8px 24px 8px;
+            padding: 1.6rem 1.6rem 1.8rem;
+            margin: 1.8rem 0 2.2rem;
+            color: #0a3d39;
+        }
+
+        .scene-note h2 {
+            font-size: 1.25rem;
+            font-weight: 450;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .scene-note h2 span {
+            background: #2b8a84;
+            color: white;
+            border-radius: 40px;
+            padding: 0.1rem 0.7rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .scene-note p {
+            margin-bottom: 0.75rem;
+        }
+
+        .scene-note ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .scene-note li {
+            padding: 0.3rem 0 0.3rem 1.6rem;
+            position: relative;
+        }
+
+        .scene-note li::before {
+            content: "·";
+            color: #2b8a84;
+            font-weight: 700;
+            position: absolute;
+            left: 0.2rem;
+        }
+
+        /* FAQ 摘要 — 简洁 */
+        .faq-mini {
+            background: white;
+            border-radius: 20px 6px 20px 6px;
+            padding: 1.3rem 1.5rem 1.5rem;
+            margin: 1.5rem 0 1rem;
+            box-shadow: 0 4px 12px rgba(35, 94, 88, 0.04);
+        }
+
+        .faq-mini details {
+            margin-bottom: 0.6rem;
+            border-bottom: 1px solid #dcf0ec;
+            padding-bottom: 0.6rem;
+        }
+
+        .faq-mini details:last-child {
+            border-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .faq-mini summary {
+            font-weight: 490;
+            cursor: pointer;
+            color: #13534e;
+            padding: 0.2rem 0;
+            font-size: 0.98rem;
+        }
+
+        .faq-mini summary::-webkit-details-marker {
+            color: #3a9b95;
+        }
+
+        .faq-mini .answer {
+            margin-top: 0.3rem;
+            padding-left: 0.3rem;
+            color: #2b4b47;
+            font-size: 0.9rem;
+        }
+
+        /* 温和结尾 */
+        .gentle-close {
+            margin: 2.5rem 0 1.5rem;
+            padding: 1.2rem 1.5rem;
+            background: #dff0ed;
+            border-radius: 60px 12px 60px 12px;
+            text-align: center;
+            color: #04423d;
+            font-size: 1rem;
+            border: 1px solid #b7dad4;
+        }
+
+        .gentle-close a {
+            color: #0a615a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #479f98;
+        }
+
+        .gentle-close a:hover {
+            border-bottom-width: 2px;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.8rem;
+            color: #677f7b;
+            margin-top: 1.8rem;
+            border-top: 1px solid #c6dfda;
+            padding-top: 1.2rem;
+            letter-spacing: 0.02em;
+        }
+
+        /* 响应式 */
+        @media (max-width: 520px) {
+            .opening {
+                font-size: 1.5rem;
+                padding-left: 0.8rem;
+            }
+
+            .context {
+                padding: 1.2rem 1rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 0.9rem;
+            }
+
+            .feature-card {
+                padding: 1.2rem 1rem;
+            }
+
+            .scene-note {
+                padding: 1.2rem;
+            }
+
+            .faq-mini {
+                padding: 1rem 1rem 1.2rem;
+            }
+
+            .gentle-close {
+                padding: 1rem 1.2rem;
+            }
+        }
+
+        @media (min-width: 800px) {
+            body {
+                padding: 0 2rem 3rem;
+            }
+
+            .feature-grid {
+                gap: 1.3rem;
+            }
+
+            .feature-card {
+                padding: 1.8rem 1.4rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-wrap">
+        <!-- 开场短句 -->
+        <div class="opening">
+            把零散的信息收拢成索引。
+            <small>从一个站点开始，重构阅读路径</small>
+        </div>
+
+        <!-- 承接段落：资料整理与信息索引视角 -->
+        <div class="context">
+            <p>
+                长期关注赛事资讯的人，大多习惯同时打开多个标签页，在新闻、数据和社区讨论之间来回切换。
+                但真正有效的资料整理，往往需要一个稳定的锚点——一个能把赛程、战绩、历史档案和选手动态汇聚在一起的结构。
+                <a href="https://chinese-hltv.com">hltv</a> 就是这样一个被许多人当作“信息枢纽”的站点。
+            </p>
+            <p>
+                它不制造信息噪音，也不刻意堆砌排名。更像是一套经过多年梳理的比赛档案库：从预选赛到顶级联赛，从地图数据到近期交手记录，
+                都按照相对干净的逻辑排列。如果你习惯在阅读新闻时顺手查阅对阵背景，或是想建立自己的工作流书签，这里的目录结构会减少很多重复搜索。
+            </p>
+        </div>
+
+        <!-- 特点列表：网格卡片 -->
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="emoji-badge">📋</div>
+                <h3>赛事脉络清单</h3>
+                <p>按赛季、地区、阶段分类的赛程表，每轮结果附带跳转。适合快速回溯某场比赛的前后赛程。</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji-badge">🧩</div>
+                <h3>交叉索引结构</h3>
+                <p>队伍页面、选手页面、地图统计互相链接。你可以从一场比赛出发，逐步展开到近期状态与历史对阵。</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji-badge">📊</div>
+                <h3>数据卡片摘要</h3>
+                <p>无需额外跳转，在列表页即可看到基础比分、地图选禁和关键数据。适合日常扫读与信息筛选。</p>
+            </div>
+            <div class="feature-card">
+                <div class="emoji-badge">🔍</div>
+                <h3>资料夹式导航</h3>
+                <p>栏目设置偏向工具属性：新闻、统计、队伍档案、赛事日历。没有过度推荐，保留了筛选的主动权。</p>
+            </div>
+        </div>
+
+        <!-- 场景 / 提示：使用情景 -->
+        <div class="scene-note">
+            <h2>
+                <span>📌 场景</span> 什么时候会用到这类索引？
+            </h2>
+            <p>
+                如果你在追踪某支队伍近期比赛状态，或者想整理一份观赛日程，一个结构清晰的资料页能节省大量“到处翻找”的时间。
+            </p>
+            <ul>
+                <li>在赛前快速查阅对手的近期地图池与交手记录</li>
+                <li>赛后对比不同赛事阶段的数据浮动</li>
+                <li>从新闻条目直接跳转到对应的战队详情页</li>
+            </ul>
+            <p style="margin-top: 0.8rem;">
+                这些操作听起来简单，但前提是网站本身提供了稳定的公开索引。
+                <a href="https://chinese-hltv.com" style="border-bottom: 1px dotted #2b8a84;">hltv</a> 在这方面一直保持了相对克制的信息层级。
+            </p>
+        </div>
+
+        <!-- FAQ 摘要 -->
+        <div class="faq-mini">
+            <details>
+                <summary>目录更新频率如何？</summary>
+                <div class="answer">比赛结果通常在结束后数小时内更新，赛程预告会提前一周左右放出。大型赛事期间条目更新更密集。</div>
+            </details>
+            <details>
+                <summary>是否适合做长期资料收集？</summary>
+                <div class="answer">可以。每支队伍和选手都有固定页面，历史比赛记录保留比较完整，适合作为外部参考源。</div>
+            </details>
+            <details>
+                <summary>与官方赛事网站有何不同？</summary>
+                <div class="answer">更侧重资讯整合与数据呈现，而非直播或社区互动。相当于一个中立的信息中转站。</div>
+            </details>
+        </div>
+
+        <!-- 温和结尾 + 嵌入链接 -->
+        <div class="gentle-close">
+            <p style="margin-bottom: 0.3rem;">
+                如果你也习惯从一份干净的索引开始整理信息，
+                <a href="https://chinese-hltv.com">hltv</a> 也许会成为你书签栏里常驻的那个节点。
+            </p>
+            <p style="font-size: 0.9rem; color: #2b5f5a; margin-top: 0.3rem;">
+                不喧哗，只是把资料放在该放的位置。
+            </p>
+        </div>
+
+        <div class="footer-note">
+            信息索引 · 温和整理
+        </div>
+    </div>
+</body>
+</html>
